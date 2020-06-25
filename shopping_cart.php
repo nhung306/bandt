@@ -99,7 +99,7 @@
                             <button type="button" class="btn btn-success">Thanh toán</button>
                         
                         <td colspan=5>
-                        <button type="button" class="btn btn-danger mt-1 mb-1">Xóa giỏ hàng</button>
+                        <button type="button" class="btn btn-danger mt-1 mb-1" onclick="location.href='./delcart.php' ">Xóa giỏ hàng</button>
                         </td>
                     </tr>
 
