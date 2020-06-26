@@ -36,25 +36,29 @@
                 array_push($_SESSION["cart_items"],array("pro_id"=>$pro_id,"quantity"=>1));
             }
         }
-        // header("location: shopping_cart.php");
+        // header("location:shopping_cart.php");
     }
 ?>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mt-1 mb-1">
-			<ul class="list-group">
-				<?php
+<div class="container-fluid text-center">
+    <h3> Thông tin giỏ hàng </h3>
+    <br>
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mt-1 mb-1">
+            <ul class="list-group">
+                <?php
 					foreach($cates as $item){
 				?>
-					<li class="list-group-item">
-						<a href="<?php echo "list_product.php?category=".$item["CategoryName"]."&cateid=".$item["CateID"]?>"><?php echo $item["CategoryName"]?></a>
-					</li>
-				<?php }?>
-			</ul>
-		</div>
+                <li class="list-group-item">
+                    <a
+                        href="<?php echo "list_product.php?category=".$item["CategoryName"]."&cateid=".$item["CateID"]?>"><?php echo $item["CategoryName"]?></a>
+                </li>
+                <?php }?>
+            </ul>
+        </div>
 
-		<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-			<div class="row">               
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+
+            <div class="row">
                 <table class="table table-condensed table-hover">
                     <thead>
                         <tr>
@@ -74,46 +78,55 @@
                                     $product = Product::get_product($id);
                                     $prod = reset($product);
                                     $total_money += $item["quantity"] * $prod["Price"];
-                        ?>
-                            <tr>
-                                <td><a style="text-decoration: none;" href="product_detail.php?id=<?php echo $prod["ProductID"]?>"><?php echo $prod["ProductName"]?></a></td>
-                                <td>
-                                    <img style="width:100px; height:100px; margin: 10px;" src="<?php echo $prod["Picture"]?>" class="img-responsive" alt="Image">
-                                </td>
-                                <td><?php echo $item["quantity"]?></td>
-                                <td><?php echo number_format($prod["Price"])?></td>
-                                <td><?php echo number_format($item["quantity"]*$prod["Price"])?></td>
-                            </tr>
+                                    ?>
+                        <tr>
+                            <td><a style="text-decoration: none;"
+                                    href="product_detail.php?id=<?php echo $prod["ProductID"]?>"><?php echo $prod["ProductName"]?></a>
+                            </td>
+                            <td>
+                                <img style="width:100px; height:100px; margin: 10px;"
+                                    src="<?php echo $prod["Picture"]?>" class="img-responsive" alt="Image">
+                            </td>
+                            <td><?php echo $item["quantity"]?></td>
+                            <td><?php echo number_format($prod["Price"])?></td>
+                            <td><?php echo number_format($item["quantity"]*$prod["Price"])?></td>
+                            <td>
+                            <a name="delete" onclick="return confirm('Bạn có chắc muốn xóa không?');" type="button" class="btn btn-danger mt-1 mb-1" href="delcart.php?id=<?php echo $item["pro_id"]?>">Xóa</a>
+                            </td>
+                        </tr>
                         <?php
-                                }
-                        ?>
+                                            }
+                                        ?>
 
-                    <tr>
-                        <td colspan=5>
-                            <span class="label label-danger"><b>Tổng tiền: <?php echo number_format($total_money)?> VNĐ</b></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan=5>
-                            <button type="button" class="btn btn-primary" onclick="location.href='./list_product.php' ">Tiếp tục mua hàng</button>
-                            <button type="button" class="btn btn-success">Thanh toán</button>
-                        
-                        <td colspan=5>
-                        <button type="button" class="btn btn-danger mt-1 mb-1" onclick="location.href='./delcart.php' ">Xóa giỏ hàng</button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td colspan=5>
+                                <span class="label label-danger"><b>Tổng tiền: <?php echo number_format($total_money)?>
+                                        VNĐ</b></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan=5>
+                                <button type="button" class="btn btn-primary"
+                                    onclick="location.href='./list_product.php' ">Tiếp tục mua hàng</button>
+                                <button type="button" class="btn btn-success">Thanh toán</button>
 
-                        
-                    <?php
+                            <!-- <td colspan=5>
+                                <button type="button" class="btn btn-danger mt-1 mb-1"
+                                    onclick="location.href='./delcart.php?id=0'">Xóa giỏ hàng</button>
+                            </td> -->
+                        </tr>
+
+
+                        <?php
                         }else{
                             echo "<tr><td colspan='5'>Không có sản phẩm nào</td></tr>";
                         }
                     ?>
                     </tbody>
                 </table>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php include_once("footer.php");?>
